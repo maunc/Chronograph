@@ -1,4 +1,4 @@
-package com.maunc.chronograph.bean
+package com.maunc.chronograph.data
 
 data class TimeData(
     var index: Int,//名次

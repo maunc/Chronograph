@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.maunc.chronograph.R
-import com.maunc.chronograph.bean.TimeData
+import com.maunc.chronograph.data.TimeData
 
 @SuppressLint("NotifyDataSetChanged")
 class TimeAdapter : BaseQuickAdapter<TimeData, BaseViewHolder>(R.layout.item_time) {

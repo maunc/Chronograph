@@ -17,10 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.maunc.chronograph.R
 import com.maunc.chronograph.adapter.TimeAdapter
-import com.maunc.chronograph.bean.TimeData
-import com.maunc.chronograph.utils.GONE
+import com.maunc.chronograph.data.TimeData
+import com.maunc.chronograph.global.GlobalVar.DEF_TIME_TEXT
+import com.maunc.chronograph.global.GlobalVar.DELAY_MILLS
+import com.maunc.chronograph.global.GlobalVar.SPEED_NUM
 import com.maunc.chronograph.utils.TimeTvUtils.formatTime
-import com.maunc.chronograph.utils.VISIBLE
+import com.maunc.chronograph.utils.gone
+import com.maunc.chronograph.utils.visible
 import com.maunc.chronograph.view.ClickScaleCardView
 import kotlinx.coroutines.MainScope
 
@@ -46,11 +49,8 @@ class MainActivity : AppCompatActivity() {
     private var mHandler: TimeHandler? = null
     private var mTimeThread: HandlerThread? = null
 
-    private val mDelayMills = 10L
     private var mTimeValue = 0f
-    private var speedNum = 0.0117f
     private var isStart = false
-    private val defTimeText = "00:00.00"
     private var rankDiffValue = 0f
     private var rankIndex = 0
 
@@ -60,13 +60,13 @@ class MainActivity : AppCompatActivity() {
 
     private val timeRuntime = object : Runnable {
         override fun run() {
-            mHandler?.postDelayed(this, mDelayMills)
+            mHandler?.postDelayed(this, DELAY_MILLS)
             calculateTime()
         }
     }
 
     private fun calculateTime() {
-        mTimeValue.plus(speedNum).let {
+        mTimeValue.plus(SPEED_NUM).let {
             mTimeValue = it
             runOnUiThread {
                 textTimeTv?.text = formatTime(it)
@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         }
         initHandler()
         initView()
+        initViewEvent()
     }
 
     private fun initHandler() {
@@ -111,13 +112,20 @@ class MainActivity : AppCompatActivity() {
         stopImageView = findViewById(R.id.stop_time_image)
         textTimeTv = findViewById(R.id.text_time)
         textTimeTv?.typeface = Typeface.createFromAsset(assets, "fonts/regular.otf")
-        textTimeTv?.text = defTimeText
+        textTimeTv?.text = DEF_TIME_TEXT
+        timeRecyclerView?.apply {
+            adapter = timeAdapter
+            layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
+            setHasFixedSize(true)
+        }
+    }
 
+    private fun initViewEvent() {
         playTimeBtu?.setOnClickScaleViewListener {
             mHandler?.post(timeRuntime)
             isStart = true
-            playTimeBtu?.GONE()
-            controllerLayout?.VISIBLE()
+            playTimeBtu?.gone()
+            controllerLayout?.visible()
             controllerImageView?.setImageResource(R.drawable.play_image)
         }
 
@@ -146,21 +154,15 @@ class MainActivity : AppCompatActivity() {
                 timeAdapter.addTime(timeData)
             } else {
                 isStart = false
-                playTimeBtu?.VISIBLE()
-                controllerLayout?.GONE()
+                playTimeBtu?.visible()
+                controllerLayout?.gone()
                 mTimeValue = 0f
                 rankDiffValue = 0f
                 rankIndex = 0
-                textTimeTv?.text = defTimeText
+                textTimeTv?.text = DEF_TIME_TEXT
                 timeAdapter.clearTime()
                 stopImageView?.setImageResource(R.drawable.mark_image)
             }
-        }
-
-        timeRecyclerView?.apply {
-            adapter = timeAdapter
-            layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
-            setHasFixedSize(true)
         }
     }
 

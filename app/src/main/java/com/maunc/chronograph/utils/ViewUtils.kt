@@ -5,11 +5,11 @@ package com.maunc.chronograph.utils
 import android.view.View
 
 @JvmName("setGone")
-fun View.GONE() {
+fun View.gone() {
     this.visibility = View.GONE
 }
 
 @JvmName("setVisible")
-fun View.VISIBLE() {
+fun View.visible() {
     this.visibility = View.VISIBLE
 }
