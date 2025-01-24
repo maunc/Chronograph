@@ -7,66 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/speed_controller_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/speed_2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="2倍"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/speed_1.5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="1.5倍"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/speed_1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="1倍"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/speed_0.75"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="0.75倍"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/speed_0.5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="0.5倍"
-            android:textSize="16sp" />
-    </LinearLayout>
-
     <TextView
         android:id="@+id/text_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
-        android:textColor="#38BFFF"
+        android:textColor="#000000"
         android:textSize="65sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,7 +25,7 @@
         android:layout_marginBottom="70dp"
         android:visibility="gone">
 
-        <androidx.cardview.widget.CardView
+        <com.maunc.chronograph.view.ClickScaleCardView
             android:id="@+id/controller_time"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -99,7 +46,7 @@
                     android:layout_centerInParent="true"
                     android:src="@drawable/play_image" />
             </RelativeLayout>
-        </androidx.cardview.widget.CardView>
+        </com.maunc.chronograph.view.ClickScaleCardView>
 
         <View
             android:id="@+id/controller_layout_center_line"
@@ -110,7 +57,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
+        <com.maunc.chronograph.view.ClickScaleCardView
             android:id="@+id/stop_time"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -130,9 +77,9 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/stop_image" />
+                    android:src="@drawable/mark_image" />
             </RelativeLayout>
-        </androidx.cardview.widget.CardView>
+        </com.maunc.chronograph.view.ClickScaleCardView>
 
         <TextView
             android:id="@+id/mark_time"
@@ -145,7 +92,7 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.cardview.widget.CardView
+    <com.maunc.chronograph.view.ClickScaleCardView
         android:id="@+id/play_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -164,12 +111,11 @@
                 android:layout_centerInParent="true"
                 android:src="@drawable/pause_image" />
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </com.maunc.chronograph.view.ClickScaleCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/timing_rec"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text_time"
-        android:visibility="gone" />
+        android:layout_below="@+id/text_time" />
 </RelativeLayout>
